@@ -1,0 +1,4 @@
+family,family_name,converter_id,converter_name,public_label,display_order,speed_ratio,k_factor,torque_ratio,status,customer_visible
+252,252,252p1-example,252P1 Example,252P1 Example,1,0,210.0,2.05,published,true
+252,252,252p1-example,252P1 Example,252P1 Example,2,0.1,208.4,1.97,published,true
+252,252,252p1-example,252P1 Example,252P1 Example,3,0.2,205.7,1.88,published,true

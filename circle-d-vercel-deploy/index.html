@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Circle D Converter Reference</title>
+    <meta
+      name="description"
+      content="Interactive Circle D converter reference with click-through family navigation, public chart views, and engineering calculators."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js" defer></script>
+    <script src="./data.js" defer></script>
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="family-rail">
+        <div class="rail-top">
+          <p class="eyebrow">Circle D Specialties</p>
+          <h1>Converter Reference</h1>
+          <p class="rail-copy">
+            Public chart explorer with quick calculators and click-through family navigation.
+          </p>
+        </div>
+
+        <div class="rail-stats">
+          <div>
+            <span class="stat-label">Families</span>
+            <strong id="familyCount">0</strong>
+          </div>
+          <div>
+            <span class="stat-label">Converters</span>
+            <strong id="converterCount">0</strong>
+          </div>
+        </div>
+
+        <nav id="familyNav" class="family-nav" aria-label="Converter families"></nav>
+
+        <div class="rail-foot">
+          <p>Built for fast customer reference and simple future dataset updates.</p>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <header class="workspace-header reveal">
+          <div>
+            <p class="eyebrow" id="familyEyebrow">Family</p>
+            <h2 id="converterTitle">Select a converter</h2>
+          </div>
+          <div class="header-actions">
+            <label class="search-field" for="converterSearch">
+              <span>Filter converters</span>
+              <input id="converterSearch" type="search" placeholder="Type part of a converter name" />
+            </label>
+            <div class="nav-pair">
+              <button id="prevConverter" class="ghost-button" type="button">Previous</button>
+              <button id="nextConverter" class="ghost-button" type="button">Next</button>
+            </div>
+          </div>
+        </header>
+
+        <section class="converter-strip reveal">
+          <div id="converterList" class="converter-list" aria-label="Converters"></div>
+        </section>
+
+        <section class="main-grid">
+          <section class="chart-zone reveal">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Performance Curves</p>
+                <h3>Public Visual Output</h3>
+              </div>
+              <p id="converterMeta" class="section-copy"></p>
+            </div>
+
+            <div class="chart-stack">
+              <article class="chart-panel">
+                <div class="chart-header">
+                  <h4>K-Factor vs Speed Ratio</h4>
+                  <span id="kRange" class="metric-pill"></span>
+                </div>
+                <canvas id="kFactorChart" aria-label="K-factor chart"></canvas>
+              </article>
+
+              <article class="chart-panel">
+                <div class="chart-header">
+                  <h4>Torque Ratio vs Speed Ratio</h4>
+                  <span id="tRange" class="metric-pill"></span>
+                </div>
+                <canvas id="torqueRatioChart" aria-label="Torque ratio chart"></canvas>
+              </article>
+            </div>
+          </section>
+
+          <aside class="detail-zone reveal">
+            <section class="detail-block">
+              <div class="section-heading compact">
+                <div>
+                  <p class="eyebrow">Selected Converter</p>
+                  <h3>Quick Stats</h3>
+                </div>
+              </div>
+              <dl id="converterStats" class="stats-grid"></dl>
+            </section>
+
+            <section class="detail-block">
+              <div class="section-heading compact">
+                <div>
+                  <p class="eyebrow">Engineering Tools</p>
+                  <h3>Calculators</h3>
+                </div>
+              </div>
+
+              <div class="calculator-stack">
+                <form class="calc-form" data-calc="kfactor">
+                  <h4>K-Factor</h4>
+                  <label>
+                    <span>Torque (Nm)</span>
+                    <input name="torque" type="number" step="any" required />
+                  </label>
+                  <label>
+                    <span>Engine Speed (rpm)</span>
+                    <input name="engineSpeed" type="number" step="any" required />
+                  </label>
+                  <button type="submit">Calculate</button>
+                  <output></output>
+                </form>
+
+                <form class="calc-form" data-calc="torque">
+                  <h4>Torque</h4>
+                  <label>
+                    <span>K-Factor</span>
+                    <input name="kFactor" type="number" step="any" required />
+                  </label>
+                  <label>
+                    <span>Engine Speed (rpm)</span>
+                    <input name="engineSpeed" type="number" step="any" required />
+                  </label>
+                  <button type="submit">Calculate</button>
+                  <output></output>
+                </form>
+
+                <form class="calc-form" data-calc="enginespeed">
+                  <h4>Engine Speed</h4>
+                  <label>
+                    <span>K-Factor</span>
+                    <input name="kFactor" type="number" step="any" required />
+                  </label>
+                  <label>
+                    <span>Torque (Nm)</span>
+                    <input name="torque" type="number" step="any" required />
+                  </label>
+                  <button type="submit">Calculate</button>
+                  <output></output>
+                </form>
+
+                <form class="calc-form" data-calc="conversion">
+                  <h4>K-Factor Conversion</h4>
+                  <label>
+                    <span>Initial Diameter</span>
+                    <input name="initialDiameter" type="number" step="any" required />
+                  </label>
+                  <label>
+                    <span>New Diameter</span>
+                    <input name="newDiameter" type="number" step="any" required />
+                  </label>
+                  <label>
+                    <span>Known K-Factor</span>
+                    <input name="knownKFactor" type="number" step="any" required />
+                  </label>
+                  <button type="submit">Convert</button>
+                  <output></output>
+                </form>
+              </div>
+            </section>
+          </aside>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
